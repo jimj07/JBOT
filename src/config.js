@@ -21,5 +21,6 @@ module.exports = {
   },
   downloadOps: {
     encoding: 'base64'
-  }
+  },
+  frequency: 1000 * 60 * 60,
 }

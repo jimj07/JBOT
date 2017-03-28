@@ -16,28 +16,35 @@ const T = new Twit({
 })
 
 let tag = ura(strings.tags)();
-giphy.get(tag)
-  .then((url) => {
-    console.log(`Found a gif: ${url}`);
-    return download(url, config.downloadOps);
-  })
-  .then((image) => {
-    console.log(`Downloaded the gif`);
-    return T.post('media/upload', {media_data: image});
-  })
-  .then((mediaData) => {
-    console.log(`Uploaded the gif`);
-    console.log(mediaData.data);
-    if (mediaData.data.errors) {
-      throw(mediaData.data.errors);
-    }
-    let mediaIdStr = mediaData.data.media_id_string;
-    let params = { status: `JBOT: #${tag}`, media_ids: [mediaIdStr] };
-    return T.post('statuses/update', params);
-  })
-  .then((updateRes) => {
-    console.log('Created a post with the gif');
-  })
-  .catch((err) => {
-    console.error(err);
-  });
+
+function run() {
+  console.log("Start running...");
+  giphy.get(tag)
+    .then((url) => {
+      console.log(`Found a gif: ${url}`);
+      return download(url, config.downloadOps);
+    })
+    .then((image) => {
+      console.log(`Downloaded the gif`);
+      return T.post('media/upload', { media_data: image });
+    })
+    .then((mediaData) => {
+      console.log(`Uploaded the gif`);
+      console.log(mediaData.data);
+      if (mediaData.data.errors) {
+        throw (mediaData.data.errors);
+      }
+      let mediaIdStr = mediaData.data.media_id_string;
+      let params = { status: `JBOT: #${tag}`, media_ids: [mediaIdStr] };
+      return T.post('statuses/update', params);
+    })
+    .then((updateRes) => {
+      console.log('Created a post with the gif');
+    })
+    .catch((err) => {
+      console.error(err);
+    });
+}
+
+run();
+setInterval(run, config.frequency);
