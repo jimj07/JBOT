@@ -5,7 +5,7 @@ let giphy = {}
 
 giphy.get = (text) => {
   return new Promise((resolve, reject) => {
-    let giphyUrl = `http://api.giphy.com/v1/gifs/random?api_key=${process.env.GIPHY_KEY}&tag=${text}`;
+    let giphyUrl = `http://api.giphy.com/v1/gifs/random?rating=pg&api_key=${process.env.GIPHY_KEY}&tag=${text}`;
     console.log(giphyUrl);
     unirest.get(giphyUrl)
       .header('Accept', 'application/json')
