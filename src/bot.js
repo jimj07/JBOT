@@ -49,4 +49,3 @@ function run() {
 }
 
 run();
-setInterval(run, config.frequency);
