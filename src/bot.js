@@ -15,10 +15,12 @@ const T = new Twit({
   access_token_secret: config.twitter.accessTokenSecret
 })
 
-let tag = ura(strings.tags)();
+
 
 function run() {
   console.log("Start running...");
+  
+  let tag = ura(strings.tags)();
   giphy.get(tag)
     .then((url) => {
       console.log(`Found a gif: ${url}`);
